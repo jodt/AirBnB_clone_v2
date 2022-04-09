@@ -638,7 +638,7 @@ class TestFunctions(unittest.TestCase):
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd("BaseModel.destroy()")
             self.assertEqual(output, f.getvalue().strip())
-        output = "** no instance found **"
+        output = "*** Unknown syntax: BaseModel.destroy(NotGoodID)"
         with patch('sys.stdout', new=StringIO()) as f:
             HBNBCommand().onecmd("BaseModel.destroy(NotGoodID)")
             self.assertEqual(output, f.getvalue().strip())
