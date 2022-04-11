@@ -352,6 +352,8 @@ def create_dict_attributes(list_args):
     """
     attributes_dict = {}
     for element in list_args:
+        if '=' not in element:
+            continue
         attributes_list = element.split("=")
         key = attributes_list[0]
         value = attributes_list[1]
