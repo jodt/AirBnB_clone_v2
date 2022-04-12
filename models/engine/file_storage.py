@@ -13,8 +13,7 @@ class FileStorage:
         if cls is not None:
             tmpObj = {}
             for key, val in self.__objects.items():
-                if isinstance(type(self.__objects[key]), cls):
-                    print(cls)
+                if isinstance(self.__objects[key], cls):
                     tmpObj[key] = val
             return tmpObj
         return FileStorage.__objects
