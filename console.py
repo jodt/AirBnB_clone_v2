@@ -127,23 +127,15 @@ class HBNBCommand(cmd.Cmd):
             elif len(list_args) == 1:
                 new_instance = HBNBCommand.classes[list_args[0]]()
                 print(new_instance.id)
-                storage.save()
+                new_instance.save()
             else:
                 class_name = list_args.pop(0)
                 attributes_dict = create_dict_attributes(list_args)
                 new_instance = HBNBCommand.classes[class_name]()
-                storage.save()
+                for k, v in attributes_dict.items():
+                    (new_instance.__dict__)[k] = v
                 print(new_instance.id)
-                command = (class_name +
-                           ".update(" +
-                           '"' +
-                           str(new_instance.id) +
-                           '"' +
-                           ", " +
-                           str(attributes_dict) +
-                           ")")
-                line = self.precmd(command)
-                self.onecmd(line)
+                new_instance.save()
 
     def help_create(self):
         """ Help information for the create method """
@@ -226,11 +218,11 @@ class HBNBCommand(cmd.Cmd):
             if args not in HBNBCommand.classes:
                 print("** class doesn't exist **")
                 return
-            for k, v in storage._FileStorage__objects.items():
+            for k, v in storage.all().items():
                 if k.split('.')[0] == args:
                     print_list.append(str(v))
         else:
-            for k, v in storage._FileStorage__objects.items():
+            for k, v in storage.all().items():
                 print_list.append(str(v))
 
         print(print_list)
@@ -313,7 +305,7 @@ class HBNBCommand(cmd.Cmd):
             args = [att_name, att_val]
 
         # retrieve dictionary of current objects
-        new_dict = storage.all()[key]
+            new_dict = storage.all()[key]
 
         # iterate through attr names and values
         for i, att_name in enumerate(args):
@@ -337,8 +329,7 @@ class HBNBCommand(cmd.Cmd):
                     new_dict.__dict__.update({att_name: att_val})
                 except Exception:
                     pass
-
-        new_dict.save()  # save updates to file
+            new_dict.save()  # save updates to file
 
     def help_update(self):
         """ Help information for the update class """
