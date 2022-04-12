@@ -2,9 +2,19 @@
 """ Place Module for HBNB project """
 from models.base_model import BaseModel, Base, storage_Type
 from sqlalchemy import Float, ForeignKey, Integer, \
-    Column, String
+    Column, String, Table
 from sqlalchemy.orm import relationship
 import models
+
+if storage_Type == "db":
+    metadata = Base.metadata
+    place_amenity = Table('place_amenity', metadata,
+                          Column('place_id', String(60),
+                                 ForeignKey('places.id'),
+                                 primary_key=True, nullable=False),
+                          Column('amenity_id', String(60),
+                                 ForeignKey('amenities.id'),
+                                 primary_key=True, nullable=False))
 
 
 class Place(BaseModel, Base):
@@ -23,6 +33,8 @@ class Place(BaseModel, Base):
         longitude = Column(Float, nullable=True)
         reviews = relationship("Review", backref="place",
                                cascade="all, delete", passive_deletes=True)
+        amenities = relationship("Amenity",
+                                 secondary=place_amenity, viewonly=False)
     else:
         city_id = ""
         user_id = ""
@@ -38,7 +50,24 @@ class Place(BaseModel, Base):
 
         @property
         def reviews(self):
+            """Getter for the review of Place."""
             reviews = models.storage.all(models.review.Review)
             for key in reviews.keys():
                 if reviews[key].place_id == self.id:
                     return reviews[key]
+
+        @property
+        def amenities(self):
+            """Getter for the amenities of Place."""
+            amenities = models.storage.all(models.amenity.Amenity)
+            list_amenities = []
+            for key in amenities.keys():
+                if amenities[key].id in self.amenity_ids:
+                    list_amenities.append(amenities[key])
+            return list_amenities
+
+        @amenities.setter
+        def amenities(self, amenity):
+            """Setter for the amenities of Place."""
+            if isinstance(type(amenity), models.Amenity):
+                self.amenity_ids.append(amenity.id)

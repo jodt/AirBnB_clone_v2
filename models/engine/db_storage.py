@@ -30,6 +30,11 @@ class DBStorage:
             Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
+        """
+        This method return a dict with instances of
+        registered in db if cls is passed otherwise all
+        instances registered in db
+        """
         from models.user import User
         from models.state import State
         from models.city import City
@@ -37,11 +42,11 @@ class DBStorage:
         from models.place import Place
         from models.review import Review
         dict_result = {}
-        list_tables = [State, City, User, Place, Review]
+        list_tables = [State, City, User, Place, Review, Amenity]
         if(cls):
             for element in self.__session.query(cls).all():
                 dict_result[element.__class__.__name__ +
-                            "."+element.id] = element
+                            "." + element.id] = element
                 if "_sa_instance_state" in element.__dict__:
                     element.__dict__.pop("_sa_instance_state")
         else:
@@ -49,18 +54,29 @@ class DBStorage:
             for table in list_tables:
                 for row in self.__session.query(table).all():
                     dict_result[row.__class__.__name__ +
-                                "."+row.id] = row
+                                "." + row.id] = row
                     if "_sa_instance_state" in row.__dict__:
                         row.__dict__.pop("_sa_instance_state")
         return dict_result
 
     def new(self, obj):
+        """
+        This method  add the object to the
+        current database session
+        """
         self.__session.add(obj)
 
     def save(self):
+        """
+         This method commit all changes of the current database session
+        """
         self.__session.commit()
 
     def reload(self):
+        """
+        This method create all tables in the database and the current
+        database session
+        """
         from models.user import User
         from models.state import State
         from models.city import City
