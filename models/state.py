@@ -14,10 +14,13 @@ class State(BaseModel, Base):
         cities = relationship('City', cascade="all, delete", backref="state")
     else:
         name = ""
+
         @property
         def cities(self):
+            """getter for cities"""
             result = []
             for value in storage.all().values():
-                if (value.__class__.__name__ == "City") and value.state_id == self.id:
+                if (value.__class__.__name__ == "City") \
+                        and value.state_id == self.id:
                     result.append(value)
             return result
