@@ -30,14 +30,14 @@ class DBStorage:
             Base.metadata.drop_all(self.__engine)
 
     def all(self, cls=None):
-        #from models.user import User
+        from models.user import User
         from models.state import State
         from models.city import City
-        #from models.amenity import Amenity
-        #from models.place import Place
-        #from models.review import Review
+        from models.amenity import Amenity
+        from models.place import Place
+        from models.review import Review
         dict_result = {}
-        list_tables = [State, City]
+        list_tables = [State, City, User, Place, Review]
         if(cls):
             for element in self.__session.query(cls).all():
                 dict_result[element.__class__.__name__ +
@@ -61,12 +61,12 @@ class DBStorage:
         self.__session.commit()
 
     def reload(self):
-        #from models.user import User
+        from models.user import User
         from models.state import State
         from models.city import City
-        #from models.amenity import Amenity
-        #from models.place import Place
-        #from models.review import Review
+        from models.amenity import Amenity
+        from models.place import Place
+        from models.review import Review
         Base.metadata.create_all(self.__engine)
         session_factory = sessionmaker(
             bind=self.__engine, expire_on_commit=False)

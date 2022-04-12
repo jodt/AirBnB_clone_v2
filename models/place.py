@@ -1,18 +1,17 @@
 #!/usr/bin/python3
 """ Place Module for HBNB project """
-from models.base_model import BaseModel, Base, Review
+from models.base_model import BaseModel, Base, storage_Type
 from sqlalchemy import Float, ForeignKey, Integer, \
-    Table, MetaData, Column, String
+    Column, String
 from sqlalchemy.orm import relationship
-from models.__init__ import storage_Type
-from models import storage
+import models
 
 
 class Place(BaseModel, Base):
     """ A place to stay """
-    if storage_Type == 'db':
-        __tablename__ = Table('places', MetaData(bind=None))
-        city_id = Column(String(60), ForeignKey('cities.id'), nullable=False)
+    if storage_Type == "db":
+        __tablename__ = "places"
+        city_id = Column(String(60), ForeignKey("cities.id"), nullable=False)
         user_id = Column(String(60), ForeignKey('users.id'), nullable=False)
         name = Column(String(128), nullable=False)
         description = Column(String(1024), nullable=True)
@@ -22,7 +21,7 @@ class Place(BaseModel, Base):
         price_by_night = Column(Integer, nullable=False, default=0)
         latitude = Column(Float, nullable=True)
         longitude = Column(Float, nullable=True)
-        reviews = relationship("Review", backref="user",
+        reviews = relationship("Review", backref="place",
                                cascade="all, delete", passive_deletes=True)
     else:
         city_id = ""
@@ -39,7 +38,7 @@ class Place(BaseModel, Base):
 
         @property
         def reviews(self):
-            reviews = storage.all(Review)
+            reviews = models.storage.all(models.review.Review)
             for key in reviews.keys():
                 if reviews[key].place_id == self.id:
                     return reviews[key]
