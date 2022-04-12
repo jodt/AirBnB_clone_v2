@@ -39,4 +39,7 @@ class Place(BaseModel, Base):
 
         @property
         def reviews(self):
-            reviews = engine.file_storage.all(Review)
+            reviews = engine.FileStorage.all(Review)
+            for key in reviews.keys():
+                if reviews[key].place_id == self.id:
+                    return reviews[key]
