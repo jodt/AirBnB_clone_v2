@@ -69,5 +69,5 @@ class Place(BaseModel, Base):
         @amenities.setter
         def amenities(self, amenity):
             """Setter for the amenities of Place."""
-            if isinstance(type(amenity), models.Amenity):
+            if isinstance(amenity, models.Amenity):
                 self.amenity_ids.append(amenity.id)
