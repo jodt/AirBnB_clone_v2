@@ -1,8 +1,7 @@
 #!/usr/bin/python3
 """ Review module for the HBNB project """
-from models.base_model import BaseModel, Base
+from models.base_model import BaseModel, Base, storage_Type
 from sqlalchemy import Column, ForeignKey, String
-from models.__init__ import storage_Type
 
 
 class Review(BaseModel, Base):
