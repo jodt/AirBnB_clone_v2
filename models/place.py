@@ -5,7 +5,7 @@ from sqlalchemy import Float, ForeignKey, Integer, \
     Table, MetaData, Column, String
 from sqlalchemy.orm import relationship
 from models.__init__ import storage_Type
-import engine
+from models import storage
 
 
 class Place(BaseModel, Base):
@@ -39,7 +39,7 @@ class Place(BaseModel, Base):
 
         @property
         def reviews(self):
-            reviews = engine.FileStorage.all(Review)
+            reviews = storage.all(Review)
             for key in reviews.keys():
                 if reviews[key].place_id == self.id:
                     return reviews[key]
