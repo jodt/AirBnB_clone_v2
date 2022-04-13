@@ -11,10 +11,5 @@ class Amenity(BaseModel, Base):
     if storage_Type == "db":
         __tablename__ = "amenities"
         name = Column(String(128), nullable=False)
-        place_amenities = relationship(
-            "Place",
-            secondary=place_amenity,
-            back_populates="amenities"
-            )
     else:
         name = ""
