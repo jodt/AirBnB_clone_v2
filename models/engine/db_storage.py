@@ -47,16 +47,12 @@ class DBStorage:
             for element in self.__session.query(cls).all():
                 dict_result[element.__class__.__name__ +
                             "." + element.id] = element
-                if "_sa_instance_state" in element.__dict__:
-                    element.__dict__.pop("_sa_instance_state")
         else:
 
             for table in list_tables:
                 for row in self.__session.query(table).all():
                     dict_result[row.__class__.__name__ +
                                 "." + row.id] = row
-                    if "_sa_instance_state" in row.__dict__:
-                        row.__dict__.pop("_sa_instance_state")
         return dict_result
 
     def new(self, obj):
