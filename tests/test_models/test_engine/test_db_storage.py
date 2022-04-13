@@ -1,20 +1,8 @@
 """
 Module for testing db_storage
 """
-from models.base_model import BaseModel
-from time import sleep
 import unittest
-from models.base_model import storage_Type
 from models.engine.db_storage import DBStorage
-from models.state import State
-import MySQLdb
-import os
-
-
-user_test = os.getenv("HBNB_MYSQL_USER")
-host_test = os.getenv("HBNB_MYSQL_HOST")
-db_test = os.getenv("HBNB_MYSQL_DB")
-pwd_test = os.getenv("HBNB_MYSQL_PWD")
 
 
 class test_db_storage(unittest.TestCase):

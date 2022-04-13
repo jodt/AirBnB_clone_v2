@@ -2,8 +2,9 @@
 """ """
 from tests.test_models.test_base_model import test_basemodel
 from models.amenity import Amenity
-from models.base_model import storage_Type
-import unittest
+from os import getenv
+
+storageType = getenv("HBNB_TYPE_STORAGE")
 
 
 class test_Amenity(test_basemodel):
@@ -18,7 +19,7 @@ class test_Amenity(test_basemodel):
     def test_name2(self):
         """ """
         new = self.value()
-        if storage_Type == "db":
+        if storageType == "db":
             self.assertEqual(new.name, None)
         else:
             self.assertEqual(type(new.name), str)
