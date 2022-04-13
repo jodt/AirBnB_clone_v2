@@ -15,26 +15,34 @@ class test_User(test_basemodel):
         self.name = "User"
         self.value = User
 
-    @unittest.skipIf(storage_Type == 'db', "do not test with dbstorage")
     def test_first_name(self):
         """ """
         new = self.value()
-        self.assertEqual(type(new.first_name), str)
+        if storage_Type == "db":
+            self.assertEqual(new.first_name, None)
+        else:
+            self.assertEqual(type(new.first_name), str)
 
-    @unittest.skipIf(storage_Type == 'db', "do not test with dbstorage")
     def test_last_name(self):
         """ """
         new = self.value()
-        self.assertEqual(type(new.last_name), str)
+        if storage_Type == "db":
+            self.assertEqual(new.last_name, None)
+        else:
+            self.assertEqual(type(new.last_name), str)
 
-    @unittest.skipIf(storage_Type == 'db', "do not test with dbstorage")
     def test_email(self):
         """ """
         new = self.value()
-        self.assertEqual(type(new.email), str)
+        if storage_Type == "db":
+            self.assertEqual(new.email, None)
+        else:
+            self.assertEqual(type(new.email), str)
 
-    @unittest.skipIf(storage_Type == 'db', "do not test with dbstorage")
     def test_password(self):
         """ """
         new = self.value()
-        self.assertEqual(type(new.password), str)
+        if storage_Type == "db":
+            self.assertEqual(new.password, None)
+        else:
+            self.assertEqual(type(new.password), str)

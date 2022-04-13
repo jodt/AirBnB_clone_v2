@@ -15,8 +15,10 @@ class test_state(test_basemodel):
         self.name = "State"
         self.value = State
 
-    @unittest.skipIf(storage_Type == 'db', "do not test with dbstorage")
     def test_name3(self):
         """ """
         new = self.value()
-        self.assertEqual(type(new.name), str)
+        if storage_Type == "db":
+            self.assertEqual(new.name, None)
+        else:
+            self.assertEqual(type(new.name), str)

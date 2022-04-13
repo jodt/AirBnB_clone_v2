@@ -15,20 +15,26 @@ class test_review(test_basemodel):
         self.name = "Review"
         self.value = Review
 
-    @unittest.skipIf(storage_Type == 'db', "do not test with dbstorage")
     def test_place_id(self):
         """ """
         new = self.value()
-        self.assertEqual(type(new.place_id), str)
+        if storage_Type == "db":
+            self.assertEqual(new.place_id, None)
+        else:
+            self.assertEqual(type(new.place_id), str)
 
-    @unittest.skipIf(storage_Type == 'db', "do not test with dbstorage")
     def test_user_id(self):
         """ """
         new = self.value()
-        self.assertEqual(type(new.user_id), str)
+        if storage_Type == "db":
+            self.assertEqual(new.user_id, None)
+        else:
+            self.assertEqual(type(new.user_id), str)
 
-    @unittest.skipIf(storage_Type == 'db', "do not test with dbstorage")
     def test_text(self):
         """ """
         new = self.value()
-        self.assertEqual(type(new.text), str)
+        if storage_Type == "db":
+            self.assertEqual(new.text, None)
+        else:
+            self.assertEqual(type(new.text), str)
