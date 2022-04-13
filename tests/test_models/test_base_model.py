@@ -47,6 +47,7 @@ class test_basemodel(unittest.TestCase):
         with self.assertRaises(TypeError):
             new = BaseModel(**copy)
 
+    @unittest.skipIf(storage_Type == "db", "Not for alchemy")
     def test_save(self):
         if storage_Type == "db":
             self.skipTest(
@@ -87,14 +88,7 @@ class test_basemodel(unittest.TestCase):
         new = self.value()
         self.assertEqual(type(new.created_at), datetime.datetime)
 
-    @unittest.skipIf(storage_Type == 'db', "do not test with dbstorage")
     def test_updated_at(self):
         """ """
         new = self.value()
         self.assertEqual(type(new.updated_at), datetime.datetime)
-        n = new.to_dict()
-        newSecond = BaseModel(**n)
-        self.assertTrue(new.updated_at == newSecond.updated_at)
-        newSecond.save()
-        self.assertFalse(new.updated_at == newSecond.updated_at)
-        self.assertFalse(newSecond.created_at == newSecond.updated_at)
