@@ -16,14 +16,18 @@ class test_City(test_basemodel):
         self.name = "City"
         self.value = City
 
-    @unittest.skipIf(storage_Type == 'db', "do not test with dbstorage")
     def test_state_id(self):
         """ """
         new = self.value()
-        self.assertEqual(type(new.state_id), str)
+        if storage_Type == "db":
+            self.assertEqual(new.state_id, None)
+        else:
+            self.assertEqual(type(new.state_id), str)
 
-    @unittest.skipIf(storage_Type == 'db', "do not test with dbstorage")
     def test_name(self):
         """ """
         new = self.value()
-        self.assertEqual(type(new.name), str)
+        if storage_Type == "db":
+            self.assertEqual(new.name, None)
+        else:
+            self.assertEqual(type(new.name), str)

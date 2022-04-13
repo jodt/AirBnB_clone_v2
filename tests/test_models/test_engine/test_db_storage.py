@@ -21,14 +21,6 @@ class test_db_storage(unittest.TestCase):
     """
     Class to test the db storage methods
     """
-    if storage_Type == 'db':
-        db = MySQLdb.connect(
-            host=host_test,
-            user=user_test,
-            passwd=pwd_test,
-            db=db_test,
-            charset="utf8")
-        cur = db.cursor()
 
     def test_doc(self):
         """
@@ -59,16 +51,3 @@ class test_db_storage(unittest.TestCase):
 
         module_class = len(DBStorage.__init__.__doc__)
         self.assertGreater(module_class, 0)
-
-    @unittest.skipIf(storage_Type != "db", "don't test with filestorage")
-    def test_count_row(self):
-        self.cur.execute("SELECT COUNT(*) FROM states")
-        row = self.cur.fetchone()
-        new_state = State(name="California")
-        new_state.save()
-        self.cur.execute("SELECT * FROM states")
-        rows = self.cur.fetchall()
-        for row in rows:
-            print(row)
-        self.cur.close()
-        self.db.close()
