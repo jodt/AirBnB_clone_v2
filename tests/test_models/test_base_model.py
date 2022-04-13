@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """ """
-from models.base_model import BaseModel
+from models.base_model import BaseModel, storage_Type
 import unittest
 import datetime
 from uuid import UUID
@@ -48,6 +48,9 @@ class test_basemodel(unittest.TestCase):
             new = BaseModel(**copy)
 
     def test_save(self):
+        if storage_Type == "db":
+            self.skipTest(
+                "Class 'models.base_model.BaseModel' is not mapped")
         """ Testing save """
         i = self.value()
         i.save()
@@ -74,12 +77,6 @@ class test_basemodel(unittest.TestCase):
         with self.assertRaises(TypeError):
             new = self.value(**n)
 
-    def test_kwargs_one(self):
-        """ """
-        n = {'Name': 'test'}
-        with self.assertRaises(KeyError):
-            new = self.value(**n)
-
     def test_id(self):
         """ """
         new = self.value()
@@ -90,6 +87,7 @@ class test_basemodel(unittest.TestCase):
         new = self.value()
         self.assertEqual(type(new.created_at), datetime.datetime)
 
+    @unittest.skipIf(storage_Type == 'db', "do not test with dbstorage")
     def test_updated_at(self):
         """ """
         new = self.value()
