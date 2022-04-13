@@ -6,22 +6,11 @@ Test for the console.py
 from itertools import count
 import os
 import unittest
-import models
-import json
-import cmd
 from io import StringIO
 from console import HBNBCommand
 import console
 import pycodestyle
 from unittest.mock import patch
-from models.base_model import BaseModel
-from models.user import User
-from models.city import City
-from models.amenity import Amenity
-from models.place import Place
-from models.review import Review
-from models.state import State
-from models.engine.file_storage import FileStorage
 
 
 class TestBasicCaseAndDoc(unittest.TestCase):

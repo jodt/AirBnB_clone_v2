@@ -1,10 +1,9 @@
-#!/usr/bin/python3.8
+#!/usr/bin/python3
 """ """
 from tests.test_models.test_base_model import test_basemodel
 from models.review import Review
-from os import getenv
-
-storageType = getenv("HBNB_TYPE_STORAGE")
+import unittest
+from models.base_model import storage_Type
 
 
 class test_review(test_basemodel):
@@ -19,7 +18,7 @@ class test_review(test_basemodel):
     def test_place_id(self):
         """ """
         new = self.value()
-        if storageType == "db":
+        if storage_Type == "db":
             self.assertEqual(new.place_id, None)
         else:
             self.assertEqual(type(new.place_id), str)
@@ -27,7 +26,7 @@ class test_review(test_basemodel):
     def test_user_id(self):
         """ """
         new = self.value()
-        if storageType == "db":
+        if storage_Type == "db":
             self.assertEqual(new.user_id, None)
         else:
             self.assertEqual(type(new.user_id), str)
@@ -35,7 +34,7 @@ class test_review(test_basemodel):
     def test_text(self):
         """ """
         new = self.value()
-        if storageType == "db":
+        if storage_Type == "db":
             self.assertEqual(new.text, None)
         else:
             self.assertEqual(type(new.text), str)
