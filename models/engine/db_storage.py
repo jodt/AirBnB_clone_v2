@@ -23,6 +23,9 @@ class DBStorage:
     __session = None
 
     def __init__(self):
+        """
+        That init dbstorage
+        """
         self.__engine = create_engine(
             "mysql+mysqldb://{}:{}@{}/{}".format(
                 user, pwd, host, data_base), pool_pre_ping=True)
@@ -67,6 +70,13 @@ class DBStorage:
          This method commit all changes of the current database session
         """
         self.__session.commit()
+
+    def delete(self, obj=None):
+        """
+        Delete an element from the database session
+        """
+        if obj:
+            self.__session.delete(obj)
 
     def reload(self):
         """
