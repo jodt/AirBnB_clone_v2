@@ -1,10 +1,14 @@
-#!/usr/bin/python3
+#!/usr/bin/python3.8
 """ """
-from models.base_model import BaseModel, storage_Type
+from models.base_model import BaseModel
 import unittest
 import datetime
+from uuid import UUID
 import json
 import os
+from os import getenv
+
+storageType = getenv("HBNB_TYPE_STORAGE")
 
 
 class test_basemodel(unittest.TestCase):
@@ -46,11 +50,8 @@ class test_basemodel(unittest.TestCase):
         with self.assertRaises(TypeError):
             new = BaseModel(**copy)
 
-    @unittest.skipIf(storage_Type == "db", "Not for alchemy")
+    @unittest.skipIf(storageType == "db", "Not for alchemy")
     def test_save(self):
-        if storage_Type == "db":
-            self.skipTest(
-                "Class 'models.base_model.BaseModel' is not mapped")
         """ Testing save """
         i = self.value()
         i.save()
@@ -63,7 +64,7 @@ class test_basemodel(unittest.TestCase):
         """ """
         i = self.value()
         self.assertEqual(str(i), '[{}] ({}) {}'.format(self.name, i.id,
-                         i.__dict__))
+                                                       i.__dict__))
 
     def test_todict(self):
         """ """

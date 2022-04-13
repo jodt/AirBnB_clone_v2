@@ -1,14 +1,11 @@
-"""
-Module for testing db_storage
-"""
+#!/usr/bin/python3
+"""Test module for db_storage"""
 import unittest
 from models.engine.db_storage import DBStorage
 
 
 class test_db_storage(unittest.TestCase):
-    """
-    Class to test the db storage methods
-    """
+    """Class to test the db_storage method"""
 
     def test_doc(self):
         """
