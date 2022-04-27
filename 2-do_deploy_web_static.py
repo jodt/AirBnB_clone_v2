@@ -19,13 +19,15 @@ def do_deploy(archive_path):
         folder = "/data/web_static/releases/"
         put(archive_path, "/tmp")
         run("mkdir -p {}{}/".format(folder, archive_name))
-        run("tar -xzf /tmp/{}.tgz -C {}{}".format(archive_name, folder, archive_name))
+        run("tar -xzf /tmp/{}.tgz -C {}{}".format(archive_name, folder,
+                                                  archive_name))
         run("rm /tmp/{}.tgz".format(archive_name))
         run("mv {}{}/web_static/* {}{}/".format(folder,
             archive_name, folder, archive_name))
         run("rm -rf {}{}/web_static".format(folder, archive_name))
         run("rm /data/web_static/current")
-        run("ln -s -f {}{}/ /data/web_static/current".format(folder, archive_name))
+        run("ln -s -f {}{}/ /data/web_static/current".format(folder,
+                                                             archive_name))
         print("New version deployed!")
         return True
     except Exception:
