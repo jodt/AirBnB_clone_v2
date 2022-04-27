@@ -3,7 +3,7 @@
 This is the do_deploy_web_static module
 """
 from os.path import exists
-from fabric.api import *
+from fabric.api import env, put, run
 
 env.hosts = ["35.227.90.48", "34.139.233.64"]
 
