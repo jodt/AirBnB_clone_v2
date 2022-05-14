@@ -44,11 +44,13 @@ button:hover{
 
 .popover {
     position: relative;
+    max-height: 300px;
     left: -31px;
     margin-top: 0;
     display: none;
     z-index: 1;
     width: 100%;
+    overflow: scroll;
     background-color: #FAFAFA;
     border-left: 1px solid #DDDDDD;
     border-right: 1px solid #DDDDDD;
