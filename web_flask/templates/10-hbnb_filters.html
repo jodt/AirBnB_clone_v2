@@ -27,7 +27,7 @@
                             <UL>
                                 {% for value in cities.values()|sort(attribute='name')%}
                                     {% if value.state_id == v.id %}
-                                        <LI>{{ value.name }}</LI>
+                                        <LI><B>{{ value.name }}</B></LI>
                                     {% endif %}
                                 {% endfor %}
                             </UL>
