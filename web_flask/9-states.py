@@ -11,6 +11,7 @@ from models.engine.db_storage import DBStorage
 app = Flask(__name__)
 app.url_map.strict_slashes = False
 
+
 @app.route('/states')
 @app.route('/states/<id>')
 def display_states(id=None):
@@ -19,7 +20,12 @@ def display_states(id=None):
     """
     states = storage.all(State)
     cities = storage.all(City)
-    return render_template('9-states.html', states = states, cities = cities, id = id)
+    return render_template(
+        '9-states.html',
+        states=states,
+        cities=cities,
+        id=id)
+
 
 @app.teardown_appcontext
 def teardown_appcontext(exception):
@@ -28,8 +34,9 @@ def teardown_appcontext(exception):
     """
     storage.close()
 
+
 if __name__ == "__main__":
     app.run(
-        host  = "0.0.0.0",
+        host="0.0.0.0",
         port=5000
     )
